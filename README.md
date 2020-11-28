@@ -15,6 +15,13 @@
 - https://field-notes-manager.web.app/
 - https://field-notes-manager.firebaseapp.com/
 
+## Sign in
+ - To signin use the credetials below
+  - Email : `mubaruganda@gmail.com`  Password: `password`
+  - Email : `test@admin.com `  Password: `password`
+  - Email : `you@admin.com `  Password: `password`
+
+
 ## How to run the project Locally
 - clone the project form git hub
 - cd into the root directory
