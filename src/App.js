@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Home from './components/Home';
+import Dashboard from './components/Dashboard';
+import NavBar from './components/NavBar'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+  
+} from "react-router-dom";
+import {useEffect} from 'react'
 
 function App() {
+
+  const history = useHistory();
+
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      history.push('/dashboard')
+    }else{
+      history.push('/')
+    }
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <Route exact path='/' component={Home} />
+      <Route exact path='/dashboard' component={Dashboard}/>
+      
     </div>
   );
 }
