@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+//Notes for future reference
+
 //New redux toolrit recommended way of writting a reducer.
 //it is updates the notes slice in the central store
+
 // const  notesSlice = createSlice({
 //   name: 'notes',
 //   initialState:{
