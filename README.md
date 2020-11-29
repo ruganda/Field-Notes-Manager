@@ -31,6 +31,7 @@
 ## Technologies used
 
 - ReactJs (react-hooks)
+- Rudux
 - Firebase
 - Firestore
 - Cloud functions
