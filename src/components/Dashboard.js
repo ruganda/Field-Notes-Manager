@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
@@ -15,8 +14,9 @@ import {
 } from '@material-ui/pickers';
 import NavBar from './NavBar';
 import axios from 'axios'
-import {useEffect} from 'react'
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
+// import {viewNotes, addNotes} from '../reducers/notesReducer'
+import { fetchNotes, createNote } from '../actions/notesAction';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,12 +54,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles()
+  const dispatch = useDispatch()
 
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const [notes, setNotes] = React.useState([])
   const [name, setName] = React.useState('')
   const [description, setDescription] = React.useState('')
 
+const {notes} = useSelector(state=> state.notes)
+console.log(notes, 'notes')
 
 const handleNameChange = (e)=>{
     e.preventDefault()
@@ -78,9 +80,8 @@ const handleNameChange = (e)=>{
       description,
       date: selectedDate.toISOString()
     }
-    const res = await axios.post('https://us-central1-field-notes-manager.cloudfunctions.net/api/notes', data)
-    setNotes([res.data, ...notes,])
 
+    dispatch(createNote(data))
   }
 
   const handleDateChange = (date) => {
@@ -88,13 +89,10 @@ const handleNameChange = (e)=>{
   };
   
   React.useEffect(()=>{
-    const fetchData = async()=>{
-      const res = await axios.get('https://us-central1-field-notes-manager.cloudfunctions.net/api/notes')
-      setNotes(res.data)  
-    }
-    fetchData()
+
+    dispatch(fetchNotes())
   },
-  [])
+  []);
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
